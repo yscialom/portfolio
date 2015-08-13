@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="dist/jquery-2.1.4.min.js"></script>
+    <script src="dist/jquery.gridder.min.js"></script>
+    <link rel="stylesheet" href="dist/jquery.gridder.min.css" />
+    <title>test</title>
+  </head>
+  <body>
+    <ul class="gridder">
+      <li class="gridder-list" data-griddercontent="page1.html">
+	<img src="http://placehold.it/600x400" />
+      </li>
+      <li class="gridder-list" data-griddercontent="page2.html">
+	<img src="http://placehold.it/600x400" />
+      </li>
+      <li class="gridder-list" data-griddercontent="page3.html">
+	<img src="http://placehold.it/600x400" />
+      </li>
+    </ul>
+
+    <script>
+      jQuery(document).ready(function ($) {
+        // Call Gridder
+        $('.gridder').gridderExpander({
+          scroll: true,
+          scrollOffset: 30,
+          scrollTo: "panel",                  // panel or listitem
+          animationSpeed: 400,
+          animationEasing: "easeInOutExpo",
+          showNav: true,                      // Show Navigation
+          nextText: "Next",                   // Next button text
+          prevText: "Previous",               // Previous button text
+          closeText: "Close",                 // Close button text
+          onStart: function(){
+            //Gridder Inititialized
+            console.log("Gridder Inititialized");
+          },
+          onContent: function(){
+            //Gridder Content Loaded
+            console.log("Gridder content load");
+          },
+          onClosed: function(){
+            //Gridder Closed
+            console.log("Gridder closed");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
