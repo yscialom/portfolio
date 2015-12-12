@@ -9,6 +9,8 @@ help () {
 ## PARAMS
 #
 TITLE=Title
+THUMB_WIDTH=250
+THUMB_HEIGHT=250
 
 #
 ## ARGS reading
@@ -55,8 +57,8 @@ mkheader() {
     echo "    }"
     echo ""
     echo "    .grid-item {"
-    echo "      width: 300px;"
-    echo "      min-height: 250px;"
+    echo "      width: ${THUMB_WIDTH}px;"
+    echo "      min-height: $(expr $THUMB_HEIGHT + 50)px;"
     echo "      border: 1px solid #000;"
     echo "      display: -moz-inline-stack;"
     echo "      display: inline-block;"
@@ -64,8 +66,9 @@ mkheader() {
     echo "      margin: 5px;"
     echo "      zoom: 1;"
     echo "      *display: inline;"
-    echo "      _height: 250px;"
+    echo "      _height: $(expr $THUMB_HEIGHT + 50)px;"
     echo "    }"
+    echo ""
     echo "    .shadowing {"
     echo "      -webkit-box-shadow: 1px 0px 4px #8f8e88;"
     echo "      -moz-box-shadow: 1px 0px 4px #8f8e88;"
@@ -96,7 +99,7 @@ mkheader() {
     echo "    p {"
     echo "      text-align: center;"
     echo "      position: relative;"
-    echo "      width: 300px;"
+    echo "      width: ${THUMB_WIDTH}px;"
     echo "    }"
     echo "  </style>"
     echo "</head>"
