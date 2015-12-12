@@ -45,11 +45,60 @@ mkheader() {
     echo "<head>"
     echo "  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">"
     echo "  <title>${TITLE}</title>"
-    echo "  <meta name=\"author\" content=\"Jake Rocheleau\">"
-    echo "  <link rel=\"shortcut icon\" href=\"http://designshack.net/favicon.ico\">"
-    echo "  <link rel=\"icon\" href=\"http://designshack.net/favicon.ico\">"
-    echo "  <link rel=\"stylesheet\" type=\"text/css\" href=\"css/index.css\">"
-    echo "  <link rel=\"stylesheet\" type=\"text/css\" href=\"http://fonts.googleapis.com/css?family=Kavoon\">"
+    echo "  <meta name=\"author\" content=\"Yankel Scialom\">"
+    echo "  <link rel=\"shortcut icon\" href=\"/favicon.ico\">"
+    echo "  <link rel=\"icon\" href=\"/favicon.ico\">"
+    echo "  <style>"
+    echo "    ul {"
+    echo "      list-style: none;"
+    echo "      text-align: center;"
+    echo "    }"
+    echo ""
+    echo "    .grid-item {"
+    echo "      width: 300px;"
+    echo "      min-height: 250px;"
+    echo "      border: 1px solid #000;"
+    echo "      display: -moz-inline-stack;"
+    echo "      display: inline-block;"
+    echo "      vertical-align: top;"
+    echo "      margin: 5px;"
+    echo "      zoom: 1;"
+    echo "      *display: inline;"
+    echo "      _height: 250px;"
+    echo "    }"
+    echo "    .shadowing {"
+    echo "      -webkit-box-shadow: 1px 0px 4px #8f8e88;"
+    echo "      -moz-box-shadow: 1px 0px 4px #8f8e88;"
+    echo "      -o-box-shadow: 1px 0px 4px #8f8e88;"
+    echo "      box-shadow: 1px 0px 4px #8f8e88;"
+    echo "    }"
+    echo ""
+    echo "    .shadowing:hover {"
+    echo "      -webkit-box-shadow: 4px 0px 8px #8f8e88;"
+    echo "      -moz-box-shadow: 4px 0px 8px #8f8e88;"
+    echo "      -o-box-shadow: 4px 0px 8px #8f8e88;"
+    echo "      box-shadow: 4px 0px 8px #8f8e88;"
+    echo "    }"
+    echo ""
+    echo "    .interactive {"
+    echo "      opacity: 0.6;"
+    echo "      -webkit-transition: all 0.4s ease;"
+    echo "      -moz-transition: all 0.4s ease;"
+    echo "      -ms-transition: all 0.4s ease;"
+    echo "      -o-transition: all 0.4s ease;"
+    echo "      transition: all 0.4s ease;"
+    echo "    }"
+    echo "    "
+    echo "    .interactive:hover {"
+    echo "      opacity: 1.0;"
+    echo "    }"
+    echo ""
+    echo "    p {"
+    echo "      text-align: center;"
+    echo "      position: relative;"
+    echo "      width: 300px;"
+    echo "    }"
+    echo "  </style>"
     echo "</head>"
     echo ""
     echo "<body>"
@@ -61,17 +110,15 @@ mkfooter() {
 }
 
 mkstartlist() {
-    echo "  <div id=\"container\">"
-    echo "    <ul id=\"thumbs\">"
+    echo "  <ul id=\"thumbs\">"
 }
 
 mkendlist() {
-    echo "    </ul>"
-    echo "  </div>"
+    echo "  </ul>"
 }
 
 listalbums() {
-    find "$opt_album_dir" -name index.html
+    find "$opt_album_dir" -name index.html | sort
 }
 
 ##
@@ -80,21 +127,20 @@ listalbums() {
 ## @param $2 Destination album name
 ## @param $3 Thumbnail image url
 albumitem() {
-    echo "      <li class=\"clearfix\">"
-    echo "        <img src=\"$3\" />"
-    echo "        <div class=\"meta\">"
-    echo "          <h4>what?</h4>"
-    echo "          <span><a href=\"$1\">$2</a></span>"
-    echo "        </div>"
-    echo "      </li>"
+    echo "    <li class=\"grid-item shadowing interactive\">"
+    echo "      <a href=\"$1\" title=\"$2\">"
+    echo "        <img src=\"http://placehold.it/300x200\" alt=\"album $2\" />"
+    echo "        <p>$2</p>"
+    echo "      </a>"
+    echo "    </li>"
 }
 
 albumname() {
-    echo "album name"
+    ./urldecode.sh "$(basename "${1%%/index.html}")"
 }
 
 albumimg() {
-    echo "http://placehold.it/150x200"
+    echo "http://placehold.it/300x200"
 }
 
 mkheader
