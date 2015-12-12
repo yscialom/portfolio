@@ -121,7 +121,7 @@ mkendlist() {
 }
 
 listalbums() {
-    find "$opt_album_dir" -name index.html | sort
+    find "$opt_album_dir" -name index.html | sed 's@/\?index.html$@@' | sort
 }
 
 ##
@@ -132,7 +132,7 @@ listalbums() {
 albumitem() {
     echo "    <li class=\"grid-item shadowing interactive\">"
     echo "      <a href=\"$1\" title=\"$2\">"
-    echo "        <img src=\"http://placehold.it/300x200\" alt=\"album $2\" />"
+    echo "        <img src=\"$3\" alt=\"album $2\" />"
     echo "        <p>$2</p>"
     echo "      </a>"
     echo "    </li>"
@@ -142,8 +142,15 @@ albumname() {
     ./urldecode.sh "$(basename "${1%%/index.html}")"
 }
 
+##
+## @brief Get the album's representative image url
+## @param $1 Destination album url
 albumimg() {
-    echo "http://placehold.it/300x200"
+    local thumb=$(echo -n "$1"/files/index.* | cut -d' ' -f1)
+    if [ ! -f "${thumb}" ]; then
+        echo todo $1 >&2
+    fi
+    echo ${thumb}
 }
 
 mkheader
