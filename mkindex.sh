@@ -84,7 +84,7 @@ mkheader() {
     echo "    }"
     echo ""
     echo "    .interactive {"
-    echo "      opacity: 0.6;"
+    echo "      opacity: 0.7;"
     echo "      -webkit-transition: all 0.4s ease;"
     echo "      -moz-transition: all 0.4s ease;"
     echo "      -ms-transition: all 0.4s ease;"
