@@ -147,8 +147,14 @@ albumname() {
 ## @param $1 Destination album url
 albumimg() {
     local thumb=$(echo -n "$1"/files/index.* | cut -d' ' -f1)
+
     if [ ! -f "${thumb}" ]; then
-        echo todo $1 >&2
+        tmpfile=$(tempfile)
+        find "$1/files" -type f -exec file {} \; | grep -o -P '^.+: \w+ image' | cut -d: -f1 > $tmpfile
+        thumb=$(head -n1 $tmpfile)
+        rm $tmpfile
+        ./mkthumb.sh "${thumb}" ${THUMB_WIDTH} ${THUMB_HEIGHT}
+        thumb=$(echo -n "$1"/files/index.* | cut -d' ' -f1)
     fi
     echo ${thumb}
 }

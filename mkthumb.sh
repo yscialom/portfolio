@@ -17,8 +17,10 @@ fi
 source="$1"
 width="$2"
 height="$3"
+resize_width=$(expr $width \* 150 / 100)
+resize_height=$(expr $height \* 150 / 100)
 
 directory=$(dirname "${source}")
 filename=$(basename "${source}")
 ext="${filename##*.}"
-convert "${source}" -gravity center -crop ${width}x${height}+0+0 "${directory}/index.${ext}"
+convert "${source}" -resize ${resize_width}x${resize_height} -gravity center -crop ${width}x${height}+0+0 "${directory}/index.${ext}"
