@@ -7,7 +7,7 @@ help() {
 #
 ## Checks
 #
-bins="ls grep realpath fgallery tempfile wc cut rm"
+bins="cut expr fgallery grep ls realpath rm tempfile wc"
 for bin in ${bins}; do
     echo -n "checking $bin ... "
     if which ${bin} > /dev/null; then
