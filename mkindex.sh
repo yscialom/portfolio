@@ -1,6 +1,6 @@
 #!/bin/bash
 help () {
-    echo "$0 --albums albums_directory"
+    echo "$0 --albums albums_directory --title \"Index page's <title>\""
     echo -n "Outputs on stdout an HTML index page linking all albums found in "
     echo "albums_directory."
 }
@@ -8,7 +8,7 @@ help () {
 #
 ## PARAMS
 #
-TITLE=Title
+TITLE=Galleries
 THUMB_WIDTH=250
 THUMB_HEIGHT=250
 
@@ -16,6 +16,7 @@ THUMB_HEIGHT=250
 ## ARGS reading
 #
 opt_album_dir="."
+opt_title="${TITLE}"
 
 while [ $# -ge 1 ] ; do
     case "$1" in
@@ -25,10 +26,19 @@ while [ $# -ge 1 ] ; do
         ;;
     -a|--albums)
         if [ $# -lt 2 ] ; then
-        help
-        exit 1
+            help
+            exit 1
         fi
         opt_album_dir="$(realpath --relative-to="$PWD" "$2")"
+        shift
+        shift
+        ;;
+    -t|--title)
+        if [ $# -lt 2 ] ; then
+            help
+            exit 1
+        fi
+        opt_title="$2"
         shift
         shift
         ;;
@@ -46,7 +56,7 @@ mkheader() {
     echo "<html>"
     echo "<head>"
     echo "  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">"
-    echo "  <title>${TITLE}</title>"
+    echo "  <title>${opt_title}</title>"
     echo "  <meta name=\"author\" content=\"Yankel Scialom\">"
     echo "  <link rel=\"shortcut icon\" href=\"/favicon.ico\">"
     echo "  <link rel=\"icon\" href=\"/favicon.ico\">"
