@@ -164,7 +164,7 @@ mkstartlist
 for album in $(listalbums) ; do
     album_name=$(albumname "$album")
     album_img=$(albumimg  "$album")
-    albumitem "${album}" "${album_name}" "${album_img}"
+    albumitem "${album}/index.html" "${album_name}" "${album_img}"
 done
 mkendlist
 mkfooter
