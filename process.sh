@@ -106,6 +106,22 @@ gallery_exists() {
 }
 
 ##
+## @brief Test whether a gallery must be ignored
+## @param $1 Absolute or relative path of source album.
+## @retval 0 If gallery for @a $1 must be ignored;
+## @retval 1 otherwise.
+##
+gallery_exclude() {
+    gallery_name=$(gallery_name "$1")
+    src_dir="${opt_albums_root}/${gallery_name}"
+    if [ -f "${src_dir}/.fgalignore" ] ; then
+	    return 0
+    else
+	    return 1
+    fi
+}
+
+##
 ## @brief Create a gallery from an album
 ## @param $1 Absolute path of source album.
 ## @param $2 Gallery name.
@@ -157,7 +173,7 @@ let album_index=0
 while read album_name ; do
     album_url=$(realpath "${opt_albums_root}"/"${album_name}")
     display_progress $album_index $album_count
-    if ! gallery_exists "${album_url}" ; then
+    if ! ( gallery_exists "${album_url}" || gallery_exclude "${album_url}" ) ; then
         gallery_name=$(gallery_name "${album_url}")
         gallery_title=$(gallery_title "${album_url}")
 	    gallery_create "${album_url}" "${gallery_name}" "${gallery_title}"
