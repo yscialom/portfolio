@@ -90,7 +90,7 @@ gallery_name() {
 }
 
 ##
-## @brief Test Whether an gallery exists
+## @brief Test whether a gallery exists
 ## @param $1 Absolute or relative path of source album.
 ## @retval 0 If gallery for @a $1 already exists;
 ## @retval 1 otherwise.
