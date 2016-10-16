@@ -131,7 +131,7 @@ mkendlist() {
 }
 
 listalbums() {
-    find "$opt_album_dir" -name index.html | sed 's@/\?index.html$@@' | sort
+    find "$opt_album_dir" -name index.html | sed 's@/\?index.html$@@' | sort -r
 }
 
 ##
